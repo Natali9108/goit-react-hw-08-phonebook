@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { ContactsItem } from './ContactItem';
 import { ContactsList } from './ContactList.styled';
 import { useSelector } from 'react-redux';
-import { selectSortContacts } from 'redux/selectors';
+import { selectSortContacts } from 'redux/contacts/selectors';
 
 const ContactList = () => {
   const sortContacts = useSelector(selectSortContacts);

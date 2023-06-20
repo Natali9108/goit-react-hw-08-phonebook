@@ -5,8 +5,8 @@ import { toast } from 'react-hot-toast';
 import { validationSchema } from '../../utils';
 import Modal from '../Modal';
 import ButtonIcon from '../ButtonIcon';
-import { addContact } from 'redux/contactsOperations';
-import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/contacts/contactsOperations';
+import { selectContacts } from 'redux/contacts/selectors';
 import { useToggle } from 'hooks';
 import {
   PhonebookForm,

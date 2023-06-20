@@ -4,7 +4,7 @@ import { MdDelete } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { padaddLeadingZero } from 'utils';
 import ButtonIcon from '../ButtonIcon';
-import { deleteContact } from 'redux/contactsOperations';
+import { deleteContact } from 'redux/contacts/contactsOperations';
 import { ContactItem, ContactText } from './ContactList.styled';
 
 export const ContactsItem = ({ index, id, name, number }) => {
