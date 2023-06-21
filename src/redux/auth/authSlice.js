@@ -5,6 +5,7 @@ const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
+  isRefreshing: false,
 };
 
 const handleFulfilledAuth = (state, action) => {
@@ -19,9 +20,18 @@ const handleFulfilledLogOut = (state, action) => {
   state.isLoggedIn = false;
 };
 
+const handlePendingRefreshUser = state => {
+  state.isRefreshing = true;
+};
+
 const handleFulfilledRefreshUser = (state, { payload }) => {
   state.user = payload;
   state.isLoggedIn = true;
+  state.isRefreshing = false;
+};
+
+const handleRejectedRefreshUser = state => {
+  state.isRefreshing = false;
 };
 
 const authSlice = createSlice({
@@ -32,7 +42,9 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, handleFulfilledAuth)
       .addCase(logIn.fulfilled, handleFulfilledAuth)
       .addCase(logOut.fulfilled, handleFulfilledLogOut)
-      .addCase(refreshUser.fulfilled, handleFulfilledRefreshUser);
+      .addCase(refreshUser.pending, handlePendingRefreshUser)
+      .addCase(refreshUser.fulfilled, handleFulfilledRefreshUser)
+      .addCase(refreshUser.rejected, handleRejectedRefreshUser);
   },
 });
 

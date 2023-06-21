@@ -5,7 +5,7 @@ import { ContactsList } from './ContactList.styled';
 import { useSelector } from 'react-redux';
 import { selectSortContacts } from 'redux/contacts/selectors';
 
-const ContactList = () => {
+export const ContactList = () => {
   const sortContacts = useSelector(selectSortContacts);
 
   return (
@@ -28,5 +28,3 @@ const ContactList = () => {
 ContactList.propTypes = {
   key: PropTypes.string,
 };
-
-export default ContactList;

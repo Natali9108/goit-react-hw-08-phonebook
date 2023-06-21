@@ -1,57 +1,90 @@
 import { lazy } from 'react';
-import { Toaster } from 'react-hot-toast';
-import ContactForm from '../ContactForm';
-import Filter from '../Filter';
-import ContactList from '../ContactList';
-import { Loader } from 'components/Loader/Loader';
-import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectContacts,
-  selectError,
-  selectIsLoading,
-} from 'redux/contacts/selectors';
+// import { Toaster } from 'react-hot-toast';
+// import ContactForm from '../ContactForm';
+// import Filter from '../Filter';
+// import ContactList from '../ContactList';
+// import { Loader } from 'components/Loader/Loader';
+// import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
+import { useDispatch } from 'react-redux';
+// import {
+//   selectContacts,
+//   selectError,
+//   selectIsLoading,
+// } from 'redux/contacts/selectors';
 import { useEffect } from 'react';
-import { fetchContacts } from 'redux/contacts/contactsOperations';
-import { RegisterForm } from 'components/RegisterForm/RegisterForm';
-import { LoginForm } from 'components/LoginForm/LoginForm';
-import { AppBar } from 'components/AppBar/AppBar';
+// import { fetchContacts } from 'redux/contacts/contactsOperations';
+// import { RegisterForm } from 'components/RegisterForm/RegisterForm';
+// import { LoginForm } from 'components/LoginForm/LoginForm';
+// import { AppBar } from 'components/AppBar/AppBar';
 import { Routes, Route } from 'react-router-dom';
-import { Layout } from 'components';
+import { Layout, PrivateRoute, RestrictedRoute } from 'components';
 import { refreshUser } from 'redux/auth/authOperations';
+import { useAuth } from 'hooks';
 
-const Home = lazy(() => import('pages/Home'));
-const Register = lazy(() => import('pages/Register'));
-const Login = lazy(() => import('pages/Login'));
+const HomePage = lazy(() => import('pages/Home'));
+const RegisterPage = lazy(() => import('pages/Register'));
+const LoginPage = lazy(() => import('pages/Login'));
+const ContactsPage = lazy(() => import('pages/Contacts'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-  const contacts = useSelector(selectContacts);
+  const { isRefreshing } = useAuth();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // const isLoading = useSelector(selectIsLoading);
+  // const error = useSelector(selectError);
+  // const contacts = useSelector(selectContacts);
+
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/Login" element={<Login />} />
-        </Route>
-      </Routes>
-      {/* <AppBar />
+    !isRefreshing && (
+      <>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+
+            <Route
+              path="/register"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={<RegisterPage />}
+                />
+              }
+            />
+
+            <Route
+              path="/login"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={<LoginPage />}
+                />
+              }
+            />
+
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute
+                  redirectTo="/login"
+                  component={<ContactsPage />}
+                />
+              }
+            />
+          </Route>
+        </Routes>
+        {/* <AppBar />
       <Container>
         <RegisterForm />
         <LoginForm /> */}
-      {/* <PhonebookTitle>Phonebook</PhonebookTitle>
+        {/* <PhonebookTitle>Phonebook</PhonebookTitle>
       <ContactForm />
       <ContactsTitle>Contacts</ContactsTitle>
       {error && <p>{error.message}</p>}
@@ -64,7 +97,7 @@ export const App = () => {
       ) : (
         <p>Add your contacts to the phonebook</p>
       )} */}
-      {/* <Toaster
+        {/* <Toaster
           position="top-right"
           toastOptions={{
             style: {
@@ -73,6 +106,7 @@ export const App = () => {
           }}
         />
       </Container> */}
-    </>
+      </>
+    )
   );
 };

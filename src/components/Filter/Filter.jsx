@@ -1,12 +1,13 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addFilter } from 'redux/contacts/filterSlice';
-import { selectFilter } from 'redux/contacts/selectors';
-import { FilterBox, FilterText, FilterField } from './Filter.styled';
 
-const Filter = () => {
+import { FilterBox, FilterText, FilterField } from './Filter.styled';
+import { useContacts } from 'hooks';
+
+export const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(selectFilter);
+  const { filter } = useContacts();
 
   const handleChangeFilter = evt => {
     dispatch(addFilter(evt.target.value));
@@ -25,5 +26,3 @@ const Filter = () => {
     </FilterBox>
   );
 };
-
-export default Filter;

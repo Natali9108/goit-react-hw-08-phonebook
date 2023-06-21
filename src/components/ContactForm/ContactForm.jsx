@@ -16,7 +16,7 @@ import {
   AddBtn,
 } from './ContactForm.styled';
 
-const ContactForm = () => {
+export const ContactForm = () => {
   const initialValues = {
     name: '',
     number: '',
@@ -102,5 +102,3 @@ const ContactForm = () => {
     </>
   );
 };
-
-export default ContactForm;
