@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { logIn } from '../../redux/auth/authOperations';
-import { toast } from 'react-hot-toast';
 
 const SignupSchema = yup
   .object()
