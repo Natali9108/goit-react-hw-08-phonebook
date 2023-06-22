@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import { Form, Field, ErrorMessage } from 'formik';
 
-export const PhonebookForm = styled(Form)`
+export const PhonebookForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: ${props => props.theme.spacing(5)};
@@ -17,7 +16,7 @@ export const Label = styled.label`
   font-weight: 600;
 `;
 
-export const Input = styled(Field)`
+export const Input = styled.input`
   padding: ${props => props.theme.spacing(2)};
   width: 100%;
   font-size: ${props => props.theme.fontSizes.small};
@@ -37,7 +36,7 @@ export const Input = styled(Field)`
   }
 `;
 
-export const ErrorDescription = styled(ErrorMessage)`
+export const ErrorDescription = styled.p`
   font-size: ${props => props.theme.fontSizes.mini};
   color: ${props => props.theme.colors.red};
 `;

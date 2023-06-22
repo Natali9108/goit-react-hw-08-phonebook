@@ -3,9 +3,9 @@ import { PropTypes } from 'prop-types';
 import { MdDelete } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { padaddLeadingZero } from 'utils';
-import ButtonIcon from '../ButtonIcon';
+import { ButtonIcon } from 'components';
 import { deleteContact } from 'redux/contacts/contactsOperations';
-import { ContactItem, ContactText } from './ContactList.styled';
+// import { ContactItem, ContactText } from './ContactList.styled';
 
 export const ContactsItem = ({ index, id, name, number }) => {
   const dispatch = useDispatch();
@@ -17,19 +17,19 @@ export const ContactsItem = ({ index, id, name, number }) => {
   };
   return (
     <>
-      <ContactItem>
-        <ContactText>
+      <li>
+        <p>
           {padaddLeadingZero(index + 1)}. {name}: {number}
-        </ContactText>
+        </p>
         <ButtonIcon onClick={() => handleRemoveContact()}>
           <MdDelete />
         </ButtonIcon>
-      </ContactItem>
+      </li>
     </>
   );
 };
 
-ContactItem.propTypes = {
+ContactsItem.propTypes = {
   index: PropTypes.number,
   name: PropTypes.string,
   number: PropTypes.string,

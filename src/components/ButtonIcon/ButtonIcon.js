@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IconBtn } from './BottonIcon.styled';
+// import { IconBtn } from './BottonIcon.styled';
 
-const IconButton = ({ children, onClick }) => (
-  <IconBtn type="button" onClick={onClick}>
+export const ButtonIcon = ({ children, onClick }) => (
+  <button type="button" onClick={onClick}>
     {children}
-  </IconBtn>
+  </button>
 );
 
-IconButton.defaultProps = {
+ButtonIcon.defaultProps = {
   onClick: () => null,
   children: null,
 };
 
-IconButton.propTypes = {
+ButtonIcon.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
 };
-
-export default IconButton;

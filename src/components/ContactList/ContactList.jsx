@@ -1,16 +1,15 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { ContactsItem } from './ContactItem';
-import { ContactsList } from './ContactList.styled';
-import { useSelector } from 'react-redux';
-import { selectSortContacts } from 'redux/contacts/selectors';
+// import { ContactsList } from './ContactList.styled';
+import { useContacts } from 'hooks';
 
 export const ContactList = () => {
-  const sortContacts = useSelector(selectSortContacts);
+  const { sortContacts } = useContacts();
 
   return (
     <>
-      <ContactsList>
+      <ul>
         {sortContacts.map(({ id, name, number }, index) => (
           <ContactsItem
             key={id}
@@ -20,7 +19,7 @@ export const ContactList = () => {
             number={number}
           />
         ))}
-      </ContactsList>
+      </ul>
     </>
   );
 };

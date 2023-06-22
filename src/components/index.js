@@ -8,3 +8,8 @@ export * from 'components/Filter/Filter';
 export * from 'components/ContactList/ContactList';
 export * from 'components/PrivateRoute';
 export * from 'components/RestrictedRoute';
+export * from 'components/ButtonIcon/ButtonIcon';
+export * from 'components/Modal/Modal';
+export * from 'components/LoginForm/LoginForm';
+export * from 'components/RegisterForm/RegisterForm';
+export * from 'components/AppBar/AppBar';

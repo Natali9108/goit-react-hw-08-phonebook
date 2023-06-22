@@ -1,13 +1,13 @@
 import { Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
-import { AppBar } from 'components/AppBar/AppBar';
+import { ResAppBar } from 'components';
 import { Loader } from 'components';
 
 export const Layout = () => {
   return (
     <>
-      <AppBar />
+      <ResAppBar />
       <main>
         <Suspense fallback={<Loader />}>
           <Outlet />

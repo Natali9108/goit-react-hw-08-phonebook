@@ -1,9 +1,9 @@
 import { ContactForm, Loader, Filter, ContactList } from 'components';
-import {
-  Container,
-  PhonebookTitle,
-  ContactsTitle,
-} from 'components/App/App.styled';
+// import {
+//   Container,
+//   PhonebookTitle,
+//   ContactsTitle,
+// } from 'components/App/App.styled';
 import { useContacts } from 'hooks';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -18,10 +18,10 @@ const Contacts = () => {
   }, [dispatch]);
 
   return (
-    <Container>
-      <PhonebookTitle>Phonebook</PhonebookTitle>
+    <div>
+      <h1>Phonebook</h1>
       <ContactForm />
-      <ContactsTitle>Contacts</ContactsTitle>
+      <h2>Contacts</h2>
       {error && <p>{error.message}</p>}
       {isLoading && !error && <Loader />}
       {contacts.length > 0 ? (
@@ -32,7 +32,7 @@ const Contacts = () => {
       ) : (
         <p>Add your contacts to the phonebook</p>
       )}
-    </Container>
+    </div>
   );
 };
 

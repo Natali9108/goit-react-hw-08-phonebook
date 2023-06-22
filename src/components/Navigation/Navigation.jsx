@@ -5,7 +5,7 @@ export const Navigation = () => {
   const { isLoggedIn } = useAuth();
   return (
     <nav>
-      <NavLink to="/">Home</NavLink>
+      {/* <NavLink to="/">Pnonebook</NavLink> */}
       {isLoggedIn && <NavLink to="/contacts">Contacts</NavLink>}
     </nav>
   );

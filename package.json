@@ -4,7 +4,8 @@
   "private": true,
   "homepage": "https://Natali9108.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
-    "@emotion/react": "^11.11.0",
+    "@chakra-ui/react": "^2.7.1",
+    "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.1.1",
     "@reduxjs/toolkit": "^1.9.5",
@@ -12,7 +13,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
-    "formik": "^2.2.9",
+    "framer-motion": "^6.5.1",
     "modern-normalize": "^1.1.0",
     "nanoid": "^4.0.2",
     "react": "^18.1.0",

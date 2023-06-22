@@ -1,38 +1,39 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
-import { validationSchema } from '../../utils';
-import Modal from '../Modal';
-import ButtonIcon from '../ButtonIcon';
+import { addContactSchema } from 'utils';
+import { ButtonIcon, Modal } from 'components';
 import { addContact } from 'redux/contacts/contactsOperations';
-import { selectContacts } from 'redux/contacts/selectors';
-import { useToggle } from 'hooks';
-import {
-  PhonebookForm,
-  Label,
-  Input,
-  ErrorDescription,
-  AddBtn,
-} from './ContactForm.styled';
+import { useContacts, useToggle } from 'hooks';
+// import {
+//   PhonebookForm,
+//   Label,
+//   Input,
+//   AddBtn,
+//   ErrorDescription,
+// } from './ContactForm.styled';
 
 export const ContactForm = () => {
-  const initialValues = {
-    name: '',
-    number: '',
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(addContactSchema),
+  });
+
   const { isOpen, toggle } = useToggle();
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+  const { contacts } = useContacts();
 
-  const handleSubmit = (values, actions) => {
-    const { name, number } = values;
-
+  const onSubmit = (data, evt) => {
+    const { name, number } = data;
     const isNameExist = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
     const isNumberExist = contacts.find(contact => contact.number === number);
-
     if (isNameExist) {
       toast.error(`Contact '${name}' is already in contacts.`);
       return;
@@ -45,12 +46,10 @@ export const ContactForm = () => {
       name,
       number,
     };
-
     dispatch(addContact(contact))
       .then(toast.success(`Contact '${name}' added 👏`))
       .catch(er => toast.error(er.message));
-
-    actions.resetForm();
+    evt.target.reset();
     toggle();
   };
 
@@ -61,42 +60,17 @@ export const ContactForm = () => {
       </ButtonIcon>
       {isOpen && (
         <Modal onClose={toggle}>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ errors, touched, isValid, dirty }) => (
-              <PhonebookForm autoComplete="off">
-                <Label htmlFor="name">
-                  Name
-                  <Input
-                    type="text"
-                    name="name"
-                    title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                    className={errors.name && touched.name ? 'invalid' : 'null'}
-                  />
-                  <ErrorDescription component="div" name="name" />
-                </Label>
-                <Label htmlFor="number">
-                  Number
-                  <Input
-                    type="tel"
-                    name="number"
-                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                    className={
-                      errors.number && touched.number ? 'invalid' : 'null'
-                    }
-                  />
-                  <ErrorDescription component="div" name="number" />
-                </Label>
-
-                <AddBtn type="submit" disabled={!isValid || !dirty}>
-                  Add contact
-                </AddBtn>
-              </PhonebookForm>
-            )}
-          </Formik>
+          <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+            <label htmlFor="name"> Name</label>
+            <input type="text" {...register('name')} />
+            <p>{errors.name?.message}</p>
+            <label htmlFor="number"> Number</label>
+            <input type="tel" {...register('number')} />
+            <p>{errors.number?.message}</p>
+            <button type="submit" disabled={!isValid}>
+              Add contact
+            </button>
+          </form>
         </Modal>
       )}
     </>

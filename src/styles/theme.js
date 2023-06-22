@@ -1,32 +1,93 @@
-export const theme = Object.freeze({
-  colors: {
-    primaryBlack: '#070a14',
-    borerFormColor: '#bfc3c7',
-    grey: '#bcc1cb',
-    white: '#ffffff',
-    green: '#4caf50',
-    blue: '#1a46bb',
-    red: '#991010',
-    btnColor: '#263f78',
-    btnBgColor: '#d5e2e7',
-    disabledBgColor: '#cfc8ca',
-    disabledColor: '#74757e',
-    backdropColor: 'rgba(0, 0, 0, 0.5)',
-  },
+import { extendTheme } from '@chakra-ui/react';
 
+export const theme = extendTheme({
+  styles: {
+    global: {
+      html: {
+        scrollBehavior: 'smooth',
+      },
+      body: {
+        color: 'black.800',
+        backgroundColor: 'white.800',
+      },
+    },
+  },
+  colors: {
+    black: {
+      800: 'RGBA(0, 0, 0, 0.80)',
+    },
+    white: {
+      800: 'RGBA(255, 255, 255, 0.80)',
+    },
+    gray: '#718096',
+    red: {
+      200: '#FEB2B2',
+    },
+  },
   fontSizes: {
-    mini: '16px',
-    small: '18px',
-    medium: '24px',
-    large: '32px',
+    xs: '16px',
+    sm: '18px',
+    md: '24px',
+    lg: '32px',
   },
-  spacing: value => `${4 * value}px`,
-  shadows: {
-    small: '0 5px 7px -1px rgba(51, 51, 51, 0.23)',
-    regular: '0px 4px 10px 4px #9e9e9e',
-    medium: '0 9px 47px 11px rgba(51, 51, 51, 0.18);',
+  fontWeights: {
+    hairline: 100,
+    thin: 200,
+    light: 300,
+    normal: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    extrabold: 800,
+    black: 900,
   },
-  animation: {
-    cubicBezier: 'cubic-bezier(0.7, 0.98, 0.86, 0.98)',
+  lineHeights: {
+    normal: 'normal',
+    none: 1,
+    shorter: 1.25,
+    short: 1.375,
+    base: 1.5,
+    tall: 1.625,
+    taller: '2',
+  },
+  letterSpacings: {
+    tighter: '-0.05em',
+    tight: '-0.025em',
+    normal: '0',
+    wide: '0.025em',
+    wider: '0.05em',
+    widest: '0.1em',
+  },
+  space: {
+    px: '1px',
+    1: '0.25rem',
+    2: '0.5rem',
+    3: '0.75rem',
+    4: '1rem',
+    5: '1.25rem',
+    6: '1.5rem',
+    7: '1.75rem',
+    8: '2rem',
+    9: '2.25rem',
+    10: '2.5rem',
+    12: '3rem',
+    14: '3.5rem',
+    16: '4rem',
+    20: '5rem',
+  },
+  sizes: { sm: '640px', md: '768px', lg: '1024px', xl: '1280px' },
+  borderRadius: {
+    none: '0',
+    sm: '0.125rem',
+    md: '0.375rem',
+    lg: '0.5rem',
+    xl: '0.75rem',
+  },
+  breakpoints: {
+    sm: '30em', // 480px
+    md: '48em', // 768px
+    lg: '62em', // 992px
+    xl: '80em', // 1280px
+    '2xl': '96em', // 1536px
   },
 });

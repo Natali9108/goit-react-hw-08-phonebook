@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { VscChromeClose } from 'react-icons/vsc';
 import PropTypes from 'prop-types';
-import { Backdrop, ModalBox, CloseBtn } from './Modal.styled';
+// import { Backdrop, ModalBox, CloseBtn } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = ({ onClose, children }) => {
+export const Modal = ({ onClose, children }) => {
   useEffect(() => {
     const handleCloseEsc = evt => {
       if (evt.code === 'Escape') {
@@ -27,14 +27,14 @@ const Modal = ({ onClose, children }) => {
   };
 
   return createPortal(
-    <Backdrop onClick={handelBackdropClick}>
-      <ModalBox>
-        <CloseBtn onClick={() => onClose()}>
+    <div onClick={handelBackdropClick}>
+      <div>
+        <button onClick={() => onClose()}>
           <VscChromeClose />
-        </CloseBtn>
+        </button>
         {children}
-      </ModalBox>
-    </Backdrop>,
+      </div>
+    </div>,
     modalRoot
   );
 };
@@ -42,5 +42,3 @@ const Modal = ({ onClose, children }) => {
 Modal.propTypes = {
   onClick: PropTypes.func,
 };
-
-export default Modal;
