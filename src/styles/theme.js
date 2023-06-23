@@ -23,6 +23,7 @@ export const theme = extendTheme({
     red: {
       200: '#FEB2B2',
     },
+    blue: '#e7e7e7',
   },
   fontSizes: {
     xs: '16px',
@@ -91,3 +92,12 @@ export const theme = extendTheme({
     '2xl': '96em', // 1536px
   },
 });
+
+export const formContainerStyle = {
+  p: '7',
+  mt: '7',
+  boxShadow: 'xl',
+  border: '1px',
+  borderColor: 'blue',
+  borderRadius: 'base',
+};
