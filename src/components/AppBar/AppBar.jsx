@@ -12,7 +12,7 @@ const headerStyles = {
   boxShadow: 'md',
 };
 
-export const ResAppBar = () => {
+export const AppBar = () => {
   const { isLoggedIn } = useAuth();
   return (
     <Box as="header" sx={headerStyles}>

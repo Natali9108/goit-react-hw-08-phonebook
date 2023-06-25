@@ -1,5 +1,12 @@
 import styled from '@emotion/styled';
 
+export const inputStyled = {
+  mb: '4',
+  focusBorderColor: 'cyan.700',
+  fontSize: '20px',
+  color: 'black',
+};
+
 export const PhonebookForm = styled.form`
   display: flex;
   flex-direction: column;

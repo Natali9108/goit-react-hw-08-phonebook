@@ -36,8 +36,9 @@ export const LoginForm = () => {
     const { email, password } = data;
 
     dispatch(logIn({ email, password }))
-      .then()
-      .catch(er => toast.er(er.message));
+      .unwrap()
+      .then(({ user }) => toast.success(`Welcome ${user.name}`))
+      .catch(() => toast.error('You enter wrong email or password'));
     evt.target.reset();
   };
 
@@ -47,7 +48,9 @@ export const LoginForm = () => {
     <Container sx={formContainerStyle}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.email?.message}>
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormLabel htmlFor="email" fontSize="sm">
+            Email
+          </FormLabel>
           <InputGroup>
             <Input
               type="email"
@@ -62,7 +65,9 @@ export const LoginForm = () => {
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.password?.message}>
-          <FormLabel htmlFor="password">Password</FormLabel>
+          <FormLabel htmlFor="password" fontSize="sm">
+            Password
+          </FormLabel>
           <InputGroup>
             <Input
               id="password"

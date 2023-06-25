@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
-import { boxLinkStyles, linkStyles, activeLink, textStyles } from './Styles';
+import { boxLinkStyles, linkStyles, activeLink, textStyles } from 'styles';
 
 export const AuthNav = () => {
   return (
@@ -26,4 +26,3 @@ export const AuthNav = () => {
     </>
   );
 };
-// _activeLink={{ color: 'green' }}

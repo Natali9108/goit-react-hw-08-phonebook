@@ -2,29 +2,39 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { BsPersonFillAdd } from 'react-icons/bs';
+import { RiContactsLine } from 'react-icons/ri';
 import { toast } from 'react-hot-toast';
 import { addContactSchema } from 'utils';
-import { ButtonIcon, Modal } from 'components';
+import { ContactModal } from 'components';
 import { addContact } from 'redux/contacts/contactsOperations';
-import { useContacts, useToggle } from 'hooks';
-// import {
-//   PhonebookForm,
-//   Label,
-//   Input,
-//   AddBtn,
-//   ErrorDescription,
-// } from './ContactForm.styled';
+import { useContacts } from 'hooks';
+import {
+  useDisclosure,
+  FormControl,
+  Input,
+  FormLabel,
+  FormErrorMessage,
+  Button,
+  InputGroup,
+  InputLeftAddon,
+  InputLeftElement,
+} from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 export const ContactForm = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    isSubmitting,
+    reset,
+    formState: { errors, isValid, isSubmitSuccessful },
   } = useForm({
+    mode: 'onChange',
     resolver: yupResolver(addContactSchema),
   });
 
-  const { isOpen, toggle } = useToggle();
   const dispatch = useDispatch();
   const { contacts } = useContacts();
 
@@ -44,34 +54,81 @@ export const ContactForm = () => {
     }
     const contact = {
       name,
-      number,
+      number: '+380' + number,
     };
     dispatch(addContact(contact))
       .then(toast.success(`Contact '${name}' added 👏`))
-      .catch(er => toast.error(er.message));
-    evt.target.reset();
-    toggle();
+      .catch(er => toast.error('Oops..., something wrong, please try again😢'));
+
+    onClose();
   };
+
+  useEffect(() => {
+    reset({
+      data: 'data',
+    });
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <>
-      <ButtonIcon onClick={toggle}>
-        <BsPersonFillAdd />
-      </ButtonIcon>
+      <Button onClick={onOpen} colorScheme="facebook" variant="ghost" mb={5}>
+        <BsPersonFillAdd style={{ width: '30px', height: '30px' }} />
+      </Button>
       {isOpen && (
-        <Modal onClose={toggle}>
+        <ContactModal isOpen={isOpen} onClose={onClose}>
           <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="name"> Name</label>
-            <input type="text" {...register('name')} />
-            <p>{errors.name?.message}</p>
-            <label htmlFor="number"> Number</label>
-            <input type="tel" {...register('number')} />
-            <p>{errors.number?.message}</p>
-            <button type="submit" disabled={!isValid}>
+            <FormControl isInvalid={errors.name?.message}>
+              <FormLabel htmlFor="name" fontSize="sm">
+                {' '}
+                Name
+              </FormLabel>
+              <InputGroup borderColor="#2d2727">
+                <InputLeftElement>
+                  <RiContactsLine style={{ fill: '#2157a5' }} />
+                </InputLeftElement>
+                <Input
+                  type="text"
+                  placeholder="Enter name"
+                  {...register('name')}
+                  mb={4}
+                  focusBorderColor="cyan.700"
+                  fontSize="20px"
+                  color="black"
+                />
+              </InputGroup>
+              <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={errors.number?.message}>
+              <FormLabel htmlFor="number" fontSize="sm">
+                Phone number
+              </FormLabel>
+              <InputGroup borderColor="#2d2727">
+                <InputLeftAddon children="+380" color="white" bg="#2d2727" />
+                <Input
+                  type="tel"
+                  placeholder="Phone number"
+                  {...register('number')}
+                  mb={4}
+                  focusBorderColor="cyan.700"
+                  fontSize="20px"
+                  color="black"
+                />
+              </InputGroup>
+
+              <FormErrorMessage>{errors.number?.message}</FormErrorMessage>
+            </FormControl>
+            <Button
+              type="submit"
+              isDisabled={!isValid}
+              isLoading={isSubmitting}
+              loadingText="Logged in"
+              colorScheme="teal"
+              variant="outline"
+            >
               Add contact
-            </button>
+            </Button>
           </form>
-        </Modal>
+        </ContactModal>
       )}
     </>
   );

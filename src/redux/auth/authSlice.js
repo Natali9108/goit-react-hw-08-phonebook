@@ -6,6 +6,7 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  error: null,
 };
 
 const handleFulfilledAuth = (state, action) => {
@@ -30,8 +31,9 @@ const handleFulfilledRefreshUser = (state, { payload }) => {
   state.isRefreshing = false;
 };
 
-const handleRejectedRefreshUser = state => {
+const handleRejectedRefreshUser = (state, action) => {
   state.isRefreshing = false;
+  state.error = action.payload;
 };
 
 const authSlice = createSlice({

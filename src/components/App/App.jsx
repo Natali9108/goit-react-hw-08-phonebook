@@ -6,7 +6,6 @@ import { Layout, PrivateRoute, RestrictedRoute } from 'components';
 import { refreshUser } from 'redux/auth/authOperations';
 import { useAuth } from 'hooks';
 
-// const HomePage = lazy(() => import('pages/Home'));
 const RegisterPage = lazy(() => import('pages/Register'));
 const LoginPage = lazy(() => import('pages/Login'));
 const ContactsPage = lazy(() => import('pages/Contacts'));
@@ -24,8 +23,6 @@ export const App = () => {
       <>
         <Routes>
           <Route path="/" element={<Layout />}>
-            {/* <Route index element={<HomePage />} /> */}
-
             <Route
               path="/register"
               element={

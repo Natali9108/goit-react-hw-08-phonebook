@@ -1,15 +1,15 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { ContactsItem } from './ContactItem';
-// import { ContactsList } from './ContactList.styled';
 import { useContacts } from 'hooks';
+import { List } from '@chakra-ui/react';
 
 export const ContactList = () => {
   const { sortContacts } = useContacts();
 
   return (
     <>
-      <ul>
+      <List display="flex" gap={1} flexDirection="column">
         {sortContacts.map(({ id, name, number }, index) => (
           <ContactsItem
             key={id}
@@ -19,7 +19,7 @@ export const ContactList = () => {
             number={number}
           />
         ))}
-      </ul>
+      </List>
     </>
   );
 };

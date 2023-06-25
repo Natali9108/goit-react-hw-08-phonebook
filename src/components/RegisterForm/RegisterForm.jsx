@@ -46,13 +46,15 @@ export const RegisterForm = () => {
     <Container sx={formContainerStyle}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name?.message}>
-          <FormLabel htmlFor="name">Username</FormLabel>
+          <FormLabel htmlFor="name" fontSize="sm">
+            Username
+          </FormLabel>
           <InputGroup>
             <Input
               type="text"
               {...register('name')}
               placeholder="Enter your name"
-              mb={2}
+              mb={3}
             />
             <InputRightElement>
               {!isValid && touchedFields.name && (
@@ -63,13 +65,15 @@ export const RegisterForm = () => {
           <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.email?.message}>
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormLabel htmlFor="email" fontSize="sm">
+            Email
+          </FormLabel>
           <InputGroup>
             <Input
               type="email"
               {...register('email')}
               placeholder="Enter your email"
-              mb={2}
+              mb={3}
             />
 
             <InputRightElement>
@@ -81,7 +85,9 @@ export const RegisterForm = () => {
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.password?.message}>
-          <FormLabel htmlFor="password">Password</FormLabel>
+          <FormLabel htmlFor="password" fontSize="sm">
+            Password
+          </FormLabel>
           <InputGroup>
             <Input
               id="password"
