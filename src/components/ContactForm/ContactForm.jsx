@@ -31,14 +31,14 @@ export const ContactForm = () => {
     reset,
     formState: { errors, isValid, isSubmitSuccessful },
   } = useForm({
-    mode: 'onChange',
+    mode: 'onTouched',
     resolver: yupResolver(addContactSchema),
   });
 
   const dispatch = useDispatch();
   const { contacts } = useContacts();
 
-  const onSubmit = (data, evt) => {
+  const onSubmit = data => {
     const { name, number } = data;
     const isNameExist = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -58,7 +58,7 @@ export const ContactForm = () => {
     };
     dispatch(addContact(contact))
       .then(toast.success(`Contact '${name}' added 👏`))
-      .catch(er => toast.error('Oops..., something wrong, please try again😢'));
+      .catch(() => toast.error('Oops..., something wrong, please try again😢'));
 
     onClose();
   };
@@ -79,7 +79,6 @@ export const ContactForm = () => {
           <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={errors.name?.message}>
               <FormLabel htmlFor="name" fontSize="sm">
-                {' '}
                 Name
               </FormLabel>
               <InputGroup borderColor="#2d2727">

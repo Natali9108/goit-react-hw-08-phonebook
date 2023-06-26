@@ -27,7 +27,7 @@ export const RegisterForm = () => {
     handleSubmit,
     formState: { errors, isValid, isSubmitting, touchedFields },
   } = useForm({
-    mode: 'onChange',
+    mode: 'onTouched',
     resolver: yupResolver(registerUserSchema),
   });
 
@@ -57,7 +57,7 @@ export const RegisterForm = () => {
               mb={3}
             />
             <InputRightElement>
-              {!isValid && touchedFields.name && (
+              {!errors.name && touchedFields.name && (
                 <CheckIcon color="green.500" />
               )}
             </InputRightElement>
@@ -77,7 +77,7 @@ export const RegisterForm = () => {
             />
 
             <InputRightElement>
-              {!isValid && touchedFields.email && (
+              {!errors.email && touchedFields.email && (
                 <CheckIcon color="green.500" />
               )}
             </InputRightElement>

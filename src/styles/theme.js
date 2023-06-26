@@ -118,7 +118,8 @@ export const linkStyles = {
 };
 
 export const activeLink = {
-  color: 'red.200',
+  bgGradient: 'linear-gradient(to right, #c6ffdd, #fbd786, #f7797d)',
+  bgClip: 'text',
   fontSize: 'md',
 };
 

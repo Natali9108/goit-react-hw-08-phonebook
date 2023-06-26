@@ -1,9 +1,9 @@
+import { Box } from '@chakra-ui/react';
 import { ColorRing } from 'react-loader-spinner';
-// import { LoaderBox } from './Loader.styled';
 
 export const Loader = () => {
   return (
-    <div>
+    <Box display="flex" justifyContent="center" alignItems="center">
       <ColorRing
         visible={true}
         height="50"
@@ -13,6 +13,6 @@ export const Loader = () => {
         wrapperClass="blocks-wrapper"
         colors={['#1a46bb', '#1a46bb', '#1a46bb', '#1a46bb', '#1a46bb']}
       />
-    </div>
+    </Box>
   );
 };

@@ -1,62 +1,84 @@
-import { FormControl, Input } from '@chakra-ui/react';
-
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { updateContact } from 'redux/contacts/contactsOperations';
+import {
+  fetchContacts,
+  updateContact,
+} from 'redux/contacts/contactsOperations';
+import { addContactSchema } from 'utils';
 
-export const UpdateContact = ({ name, number, id }) => {
+export const UpdateContact = ({ name, number, id, onToggle }) => {
   const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
-    // formState: { errors },
-  } = useForm();
-
-  //   const handleChange = evt => {
-  //     console.log(evt);
-  //     // if (evt.target.name === 'name') {
-  //     //   return setUpdatedName(evt.target.value);
-  //     // }
-  //     // if (evt.target.name === 'number') {
-  //     //   return setUpdatedNumber(evt.target.value);
-  //     // }
-  //   };
+    formState: { errors, isValid, isSubmitting, isDirty },
+  } = useForm({
+    mode: 'onTouched',
+    resolver: yupResolver(addContactSchema),
+  });
 
   const onSubmit = data => {
-    const contact = {
-      id: id,
-      ...data,
-    };
-    console.log(contact);
+    dispatch(updateContact({ id, newContact: data }))
+      .unwrap()
+      .then(({ data }) => {
+        toast.success(`Contact ${data.name} was update`);
+        dispatch(fetchContacts());
+      })
+      .catch(() =>
+        toast.error('Oops, something went wrong, please, try again')
+      );
 
-    dispatch(updateContact(contact));
-    console.log(data);
+    onToggle();
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
+      <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+        <FormControl isInvalid={errors.name?.message}>
           <Input
-            // onChange={handleChange}
+            type="text"
             defaultValue={name}
-            // type="text"
-            // name="name"
             {...register('name')}
+            mb={1}
+            borderRadius="3xl"
+            focusBorderColor="cyan.700"
           ></Input>
+          <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl>
-          <Input
-            defaultValue={number}
-            // onChange={handleChange}
-            // type="text"
-            // name="number"
-
-            {...register('number')}
-          ></Input>
+        <FormControl isInvalid={errors.number?.message}>
+          <FormLabel>
+            <Input
+              type="tel"
+              defaultValue={number}
+              {...register('number')}
+              mb={2}
+              borderRadius="3xl"
+              focusBorderColor="cyan.700"
+            ></Input>
+          </FormLabel>
+          <FormErrorMessage>{errors.number?.message}</FormErrorMessage>
         </FormControl>
-        <button type="submit">Update</button>
+        <Button
+          type="submit"
+          mb={4}
+          isDisabled={!isValid || !isDirty}
+          isLoading={isSubmitting}
+          loadingText="Is edited..."
+          colorScheme="teal"
+          variant="outline"
+        >
+          Edit
+        </Button>
       </form>
     </>
   );

@@ -12,3 +12,4 @@ export * from 'components/ContactModal/ContactModal';
 export * from 'components/LoginForm/LoginForm';
 export * from 'components/RegisterForm/RegisterForm';
 export * from 'components/AppBar/AppBar';
+export * from 'components/UpdateContact/UpdateContact';

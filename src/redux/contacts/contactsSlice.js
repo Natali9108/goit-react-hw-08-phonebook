@@ -33,9 +33,12 @@ const handleFulfieldDeleteContact = (state, { payload }) => {
 };
 
 const handleFulfieldUpdateContact = (state, { payload }) => {
-  // const find = state.items.find(contact => contact.id === payload.id);
-  // find = payload;
-  state.items = payload;
+  state.items = state.items.map(item => {
+    if (item.id === payload.id) {
+      return item === payload;
+    } else return item;
+  });
+  state.isLoading = false;
 };
 
 const handleRejected = (state, { payload }) => {
