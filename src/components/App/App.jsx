@@ -54,8 +54,8 @@ export const App = () => {
                 />
               }
             />
+            <Route path="*" element={<Navigate to="/" replace={true} />} />
           </Route>
-          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Routes>
       </>
     )
