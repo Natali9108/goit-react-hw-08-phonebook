@@ -22,6 +22,8 @@ import {
 import { useEffect } from 'react';
 
 export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const { contacts } = useContacts();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const {
@@ -34,9 +36,6 @@ export const ContactForm = () => {
     mode: 'onTouched',
     resolver: yupResolver(addContactSchema),
   });
-
-  const dispatch = useDispatch();
-  const { contacts } = useContacts();
 
   const onSubmit = data => {
     const { name, number } = data;
@@ -57,6 +56,7 @@ export const ContactForm = () => {
       number: '+380' + number,
     };
     dispatch(addContact(contact))
+      .unwrap()
       .then(toast.success(`Contact '${name}' added 👏`))
       .catch(() => toast.error('Oops..., something wrong, please try again😢'));
 

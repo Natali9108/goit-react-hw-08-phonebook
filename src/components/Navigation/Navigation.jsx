@@ -7,7 +7,10 @@ export const Navigation = () => {
   const { isLoggedIn } = useAuth();
   return (
     <nav>
-      {/* <NavLink to="/">Pnonebook</NavLink> */}
+      <Link as={NavLink} mr={3} sx={linkStyles} _activeLink={activeLink} to="/">
+        Home
+      </Link>
+
       {isLoggedIn && (
         <Link
           as={NavLink}

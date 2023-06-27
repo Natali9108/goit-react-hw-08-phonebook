@@ -35,7 +35,8 @@ export const RegisterForm = () => {
     const { name, email, password } = data;
 
     dispatch(registerUser({ name, email, password }))
-      .then(toast.success(`user ${name} registered`))
+      .unwrap()
+      .then(({ data }) => toast.success(`user ${data.name} registered`))
       .catch(er => toast.error(er.message));
     evt.target.reset();
   };

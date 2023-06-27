@@ -1,16 +1,7 @@
 import { Navigation, AuthNav, UserMenu } from 'components';
 import { useAuth } from 'hooks';
 import { Box } from '@chakra-ui/react';
-
-const headerStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  p: 5,
-  bg: 'gray',
-  height: '80px',
-  boxShadow: 'md',
-};
+import { headerStyles } from './AppBarStyles';
 
 export const AppBar = () => {
   const { isLoggedIn } = useAuth();
