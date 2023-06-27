@@ -15,14 +15,16 @@ import { contactsReducer } from './contacts/contactsSlice';
 import { authReducer } from './auth/authSlice';
 
 const authPersistConfig = {
-  key: 'token',
+  key: 'auth',
   storage,
   whitelist: ['token'],
 };
 
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authReducer),
+    auth: persistedAuthReducer,
     contacts: contactsReducer,
     filter: filterReducer,
   },
