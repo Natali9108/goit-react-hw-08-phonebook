@@ -16,6 +16,7 @@ export const UserMenu = () => {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const { isOpen, toggle } = useToggle();
+
   return (
     <>
       <List position="relative">
@@ -37,7 +38,9 @@ export const UserMenu = () => {
             sx={userBtnStyle}
             onClick={toggle}
           >
-            <Text as="span" sx={userBtnTextStyle}>{`${user.name}`}</Text>
+            <Text as="span" sx={userBtnTextStyle}>
+              {user.name}
+            </Text>
           </Button>
           {isOpen && (
             <List

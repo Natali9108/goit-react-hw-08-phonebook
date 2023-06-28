@@ -7,6 +7,7 @@ import { ContactForm, Loader, Filter, ContactList } from 'components';
 // } from 'components/App/App.styled';
 import { useContacts } from 'hooks';
 import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { fetchContacts } from 'redux/contacts/contactsOperations';
 
@@ -15,7 +16,11 @@ const Contacts = () => {
   const { contacts, error, isLoading } = useContacts();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchContacts())
+      .unwrap()
+      .catch(() =>
+        toast.error('Opps, something went wrong, please, try again later')
+      );
   }, [dispatch]);
 
   return (
