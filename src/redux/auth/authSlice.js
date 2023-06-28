@@ -11,10 +11,10 @@ const initialState = {
 
 const isPending = action =>
   action.type.endsWith('/pending') && action.type.includes('auth');
-
 const handlePending = state => {
   state.error = null;
 };
+
 const handleFulfilleRegisterdAuth = (state, action) => {
   state.user = action.payload.user;
   state.token = action.payload.token;
@@ -43,7 +43,9 @@ const handleFulfilledRefreshUser = (state, action) => {
   state.isRefreshing = false;
 };
 
-const handleRejectedRefresh = state => (state.isRefreshing = false);
+const handleRejectedRefresh = state => {
+  state.isRefreshing = false;
+};
 const isRejected = action =>
   action.type.endsWith('/rejected') && action.type.includes('auth');
 
