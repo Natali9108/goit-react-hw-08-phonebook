@@ -16,12 +16,14 @@ const handlePending = state => {
   state.isLoading = true;
 };
 
-const isPending = action => action.type.endsWith('/pending');
+const isPending = action =>
+  action.type.endsWith('/pending') && action.type.includes('contacts');
 
-const handleFulfilledFetchContacts = (state, { payload }) => {
+const handleFulfilledFetchContacts = (state, action) => {
   state.isLoading = false;
-  state.items = payload;
+  state.items = action.payload;
 };
+
 const handleFulfieldAddContacts = (state, { payload }) => {
   state.isLoading = false;
   state.items.push(payload);
@@ -45,7 +47,8 @@ const handleRejected = (state, { payload }) => {
   state.isLoading = false;
   state.error = payload;
 };
-const isRejected = action => action.type.endsWith('/rejected');
+const isRejected = action =>
+  action.type.endsWith('/rejected') && action.type.includes('contacts');
 
 const contactsSlice = createSlice({
   name: 'contacts',

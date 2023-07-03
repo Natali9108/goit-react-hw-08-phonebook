@@ -9,10 +9,20 @@ const initialState = {
   error: null,
 };
 
-const isPending = action =>
+const isPending = action => {
   action.type.endsWith('/pending') && action.type.includes('auth');
+};
+
 const handlePending = state => {
   state.error = null;
+};
+
+const isRejected = action => {
+  action.type.endsWith('/rejected') && action.type.includes('auth');
+};
+
+const handleRejected = (state, action) => {
+  state.error = action.payload;
 };
 
 const handleFulfilleRegisterdAuth = (state, action) => {
@@ -45,12 +55,6 @@ const handleFulfilledRefreshUser = (state, action) => {
 
 const handleRejectedRefresh = state => {
   state.isRefreshing = false;
-};
-const isRejected = action =>
-  action.type.endsWith('/rejected') && action.type.includes('auth');
-
-const handleRejected = (state, action) => {
-  state.error = action.payload;
 };
 
 const authSlice = createSlice({
